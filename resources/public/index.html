@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" ng-app="kawsc">
+  <head>
+    <meta charset="utf8">
+    <title>KAWSC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button"
+                  class="btn btn-navbar"
+                  data-toggle="collapse"
+                  data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">KAWSC</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav" ng-controller="NavBarCtrl">
+              <li ng-class="{active: isActive('instances')}">
+                <a href="#/instances">Instances</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div ng-view></div>
+    </div>
+
+    <script src="/js/components/angular/angular.js"></script>
+    <script src="/js/components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/js/components/underscore/underscore.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/controllers/instances.js"></script>
+  </body>
+</html>

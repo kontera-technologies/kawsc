@@ -1,0 +1,7 @@
+{
+  "name": "kawsc",
+  "dependencies": {
+    "angular-bootstrap": "0.5.0",
+    "underscore": "1.5.1"
+  }
+}

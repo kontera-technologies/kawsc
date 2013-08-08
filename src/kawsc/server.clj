@@ -8,6 +8,7 @@
             [ring.middleware.session :refer [wrap-session]]
             [org.httpkit.server :refer [run-server]]
             [micro-middleware.json-support :as mmj]
+            [cheshire.custom :as jc]
             [kawsc.aws :as aws]))
 
 (defn- json-response
@@ -24,6 +25,9 @@
    (resources "/")))
 
 (defn start-server [system {:keys [listening-port]}]
+  (jc/add-encoder org.joda.time.DateTime
+                  #((println "WTF: encoding joda")
+                    (jc/encode-date (java.util.Date. (.getMillis %1)) %2)))
   (run-server (-> (create-routes system)
                   (wrap-keyword-params)
                   (wrap-nested-params)

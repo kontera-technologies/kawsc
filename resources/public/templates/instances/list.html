@@ -1,0 +1,51 @@
+<table class="table table-bordered table-striped table-condensed">
+  <caption>{{running().length}}({{instances.length}}) instances</caption>
+  <thead>
+    <tr>
+      <th>
+        <input class="input-small"
+               placeholder="ID"
+               ng-model="query.instance_id">
+      </th>
+      <th>
+        <input class="input-small"
+               placeholder="Name"
+               ng-model="query.kona_name">
+      </th>
+      <th>
+        <input class="input-small"
+               placeholder="Project"
+               ng-model="query.kona_project">
+      </th>
+      <th>
+        <input class="input-small"
+               placeholder="Type"
+               ng-model="query.instance_type">
+      </th>
+      <th>
+        <input class="input-small"
+               placeholder="DNS"
+               ng-model="query.public_dns_name">
+      </th>
+      <th>
+        <input class="input-small"
+               placeholder="IP"
+               ng-model="query.private_ip_address">
+      </th>
+      <th>Price/month</th>
+      <th>Launched</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="i in running() | filter:query | orderBy:'kona_price':true">
+      <td>{{i.instance_id}}</td>
+      <td>{{i.kona_name}}</td>
+      <td>{{i.kona_project}}</td>
+      <td>{{i.instance_type}}</td>
+      <td>{{i.public_dns_name}}</td>
+      <td>{{i.private_ip_address}}</td>
+      <td>{{i.kona_price | currency}}</td>
+      <td>{{i.launch_time | date:'mediumDate'}}</td>
+    </tr>
+  </tbody>
+</table>

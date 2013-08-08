@@ -8,7 +8,7 @@
                  [http-kit "2.1.8"]
                  [ring/ring-core "1.2.0"]
                  [compojure "1.1.5"]
-                 [stask/micro-middleware "0.0.11"]
+                 [stask/micro-middleware "0.0.12"]
                  [com.taoensso/timbre "2.5.0"]
                  [com.novemberain/monger "1.6.0"]
                  [amazonica "0.1.13"]]

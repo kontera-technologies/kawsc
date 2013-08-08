@@ -1,0 +1,19 @@
+'use strict';
+
+angular.module('kawsc', ['ui.bootstrap'])
+  .config(function($routeProvider) {
+    $routeProvider
+      .when('/instances', {controller: 'InstanceListCtrl',
+                           pageKey: 'instances',
+                           templateUrl: 'templates/instances/list.html'})
+      .otherwise({redirectTo: '/instances'});
+  }).run(function($rootScope) {
+    $rootScope.$on('$routeChangeSuccess', function(ae, curRoute, prevRoute) {
+      $rootScope.pageKey = curRoute.pageKey;
+    });
+  })
+  .controller('NavBarCtrl', function($scope) {
+    $scope.isActive = function(pageKey) {
+      return $scope.$parent.pageKey == pageKey;
+    };
+  });
