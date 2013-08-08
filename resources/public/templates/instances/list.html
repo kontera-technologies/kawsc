@@ -1,3 +1,4 @@
+<div ng-show="loading"><i class="icon-spinner icon-spin icon-large"></i>Loading...</div>
 <table class="table table-bordered table-striped table-condensed">
   <caption>{{running().length}}({{instances.length}}) instances</caption>
   <thead>
@@ -11,6 +12,11 @@
         <input class="input-small"
                placeholder="Name"
                ng-model="query.kona_name">
+      </th>
+      <th>
+        <input class="input-small"
+               placeholder="Zone"
+               ng-model="query.placement.availability_zone">
       </th>
       <th>
         <input class="input-small"
@@ -32,20 +38,27 @@
                placeholder="IP"
                ng-model="query.private_ip_address">
       </th>
-      <th>Price/month</th>
+      <th>
+        <input class="input-small"
+               placeholder="Min price"
+               ng-model="minPrice">
+      </th>
       <th>Launched</th>
+      <th>Spot</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="i in running() | filter:query | orderBy:'kona_price':true">
       <td>{{i.instance_id}}</td>
       <td>{{i.kona_name}}</td>
+      <td>{{i.placement.availability_zone}}</td>
       <td>{{i.kona_project}}</td>
       <td>{{i.instance_type}}</td>
       <td>{{i.public_dns_name}}</td>
       <td>{{i.private_ip_address}}</td>
       <td>{{i.kona_price | currency}}</td>
       <td>{{i.launch_time | date:'mediumDate'}}</td>
+      <td>{{i.instance_lifecycle || "regular"}}</td>
     </tr>
   </tbody>
 </table>
