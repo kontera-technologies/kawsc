@@ -2,7 +2,7 @@
   (:require [amazonica.core :refer []]
             [amazonica.aws.ec2 :refer :all]
             [clojure.string :as s]
-            [clojure.pprint :as pp]))
+            [clojure.core.memoize :as memo]))
 
 (def ^:private ^:const pricing
   {"m1.small" 43.2
@@ -24,7 +24,7 @@
    "hi1.4xlarge" 2232
    "hs1.8xlarge" 3312})
 
-(defn instances [{:keys [aws-creds]}]
+(defn instances* [{:keys [aws-creds]}]
   (letfn [(tag-extractor [tag-name default i]
             (let [k (keyword (str "kona-" (s/lower-case tag-name)))
                   tag (first (filter #(.equalsIgnoreCase (:key %) tag-name)
@@ -47,7 +47,9 @@
           (map :instances
                (:reservations (describe-instances aws-creds)))))))
 
-(defn reservations [{:keys [aws-creds] :as ctx}]
+(def instances (memo/ttl instances* :ttl/threshold 120000))
+
+(defn reservations* [{:keys [aws-creds] :as ctx}]
   (let [reserved-instances (:reserved-instances
                             (describe-reserved-instances aws-creds))
         running-instances (reduce #(let [key [(:kona-availability-zone %2)
@@ -57,7 +59,6 @@
                                   {}
                                   (filter #(= (get-in % [:state :name]) "running")
                                           (instances ctx)))]
-    (pp/pprint running-instances)
     (loop [result []
            input (:reserved-instances (describe-reserved-instances aws-creds))
            running-instances running-instances]
@@ -74,3 +75,5 @@
           (recur (conj result (assoc r :kona-used-instance-count used-count))
                  (rest input)
                  (assoc running-instances key running-count)))))))
+
+(def reservations (memo/ttl reservations* :ttl/threshold 120000))
