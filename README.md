@@ -1,13 +1,12 @@
 # kawsc
 
-A Clojure library designed to ... well, that part is up to you.
+Tool that helps to understand why the heck our AWS monthly bill is so high.
 
 ## Usage
 
-FIXME
+You'll need java and Leiningen.
 
-## License
-
-Copyright © 2013 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
+Configure your AWS credentials in etc/kawsc.cfg.
+You can run this tool in two ways:
+* ```lein run```
+* ```lein uberjar && java -jar <path-to-jar>```
