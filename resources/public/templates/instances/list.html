@@ -16,7 +16,7 @@
       <th>
         <input class="input-small"
                placeholder="Zone"
-               ng-model="query.placement.availability_zone">
+               ng-model="query.kona_availability_zone">
       </th>
       <th>
         <input class="input-small"
@@ -51,7 +51,7 @@
     <tr ng-repeat="i in visible() | orderBy:'kona_price':true">
       <td>{{i.instance_id}}</td>
       <td>{{i.kona_name}}</td>
-      <td>{{i.placement.availability_zone}}</td>
+      <td>{{i.kona_availability_zone}}</td>
       <td>{{i.kona_project}}</td>
       <td>{{i.instance_type}}</td>
       <td>{{i.public_dns_name}}</td>

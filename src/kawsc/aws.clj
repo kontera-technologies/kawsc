@@ -1,7 +1,8 @@
 (ns kawsc.aws
   (:require [amazonica.core :refer []]
             [amazonica.aws.ec2 :refer :all]
-            [clojure.string :as s]))
+            [clojure.string :as s]
+            [clojure.pprint :as pp]))
 
 (def ^:private ^:const pricing
   {"m1.small" 43.2
@@ -31,11 +32,45 @@
                   v (if tag (:value tag) default)]
               (assoc i k v)))
           (price-extractor [i]
-            (assoc i :kona-price (get pricing (:instance-type i) -1)))]
+            (assoc i :kona-price (get pricing (:instance-type i) -1)))
+          (lifter [ks k default i]
+            (assoc i k (get-in i ks default)))]
     (map (comp (partial tag-extractor "name" "unnamed")
                (partial tag-extractor "project" "unnamed")
                (partial tag-extractor "owner" "unknown")
-               price-extractor)
+               price-extractor
+               (partial lifter
+                        [:placement :availability-zone]
+                        :kona-availability-zone
+                        "unknown"))
          (flatten
           (map :instances
                (:reservations (describe-instances aws-creds)))))))
+
+(defn reservations [{:keys [aws-creds] :as ctx}]
+  (let [reserved-instances (:reserved-instances
+                            (describe-reserved-instances aws-creds))
+        running-instances (reduce #(let [key [(:kona-availability-zone %2)
+                                              (:instance-type %2)]
+                                         instances (get %1 key 0)]
+                                     (assoc %1 key (inc instances)))
+                                  {}
+                                  (filter #(= (get-in % [:state :name]) "running")
+                                          (instances ctx)))]
+    (pp/pprint running-instances)
+    (loop [result []
+           input (:reserved-instances (describe-reserved-instances aws-creds))
+           running-instances running-instances]
+      (if (empty? input)
+        result
+        (let [r (first input)
+              key [(:availability-zone r) (:instance-type r)]
+              reserved-count (:instance-count r)
+              running-count (get running-instances key 0)
+              used-count (if (> reserved-count running-count)
+                           (- reserved-count running-count)
+                           reserved-count)
+              running-count (max 0 (- running-count used-count))]
+          (recur (conj result (assoc r :kona-used-instance-count used-count))
+                 (rest input)
+                 (assoc running-instances key running-count)))))))

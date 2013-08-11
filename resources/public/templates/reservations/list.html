@@ -1,0 +1,34 @@
+<div ng-show="loading"><i class="icon-spinner icon-spin icon-large"></i>Loading...</div>
+<table class="table-bordered table-striped table-condensed">
+  <caption>{{ total$() | currency }}</caption>
+  <thead>
+    <tr>
+      <th>
+        <input class="input-small"
+               placeholder="Zone"
+               ng-model="query.availability_zone">
+      </th>
+      <th>
+        <input class="input-small"
+               placeholder="Type"
+               ng-model="query.instance_type">
+      </th>
+      <th>Price</th>
+      <th>Reserved instances</th>
+      <th>Used</th>
+      <th>Start</th>
+      <th>Active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="r in visible() | orderBy:'fixed_price':true">
+      <td>{{r.availability_zone}}</td>
+      <td>{{r.instance_type}}</td>
+      <td>{{(r.fixed_price * r.instance_count) | currency}}</td>
+      <td>{{r.instance_count}}</td>
+      <td>{{r.kona_used_instance_count}}</td>
+      <td>{{r.start | date:'mediumDate'}}</td>
+      <td>{{r.state}}</td>
+    </tr>
+  </tbody>
+</table>

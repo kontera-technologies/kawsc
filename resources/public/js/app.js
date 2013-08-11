@@ -6,6 +6,9 @@ angular.module('kawsc', ['ui.bootstrap'])
       .when('/instances', {controller: 'InstanceListCtrl',
                            pageKey: 'instances',
                            templateUrl: 'templates/instances/list.html'})
+      .when('/reservations', {controller: 'ReservationListCtrl',
+                              pageKey: 'reservations',
+                              templateUrl: 'templates/reservations/list.html'})
       .otherwise({redirectTo: '/instances'});
   }).run(function($rootScope) {
     $rootScope.$on('$routeChangeSuccess', function(ae, curRoute, prevRoute) {

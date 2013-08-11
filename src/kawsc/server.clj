@@ -22,6 +22,7 @@
   (routes
    (GET "/" [] (res/redirect "/index.html"))
    (GET "/instances" [] (json-response (aws/instances system)))
+   (GET "/reservations" [] (json-response (aws/reservations system)))
    (resources "/")))
 
 (defn start-server [system {:keys [listening-port]}]
