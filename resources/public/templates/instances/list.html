@@ -1,6 +1,6 @@
 <div ng-show="loading"><i class="icon-spinner icon-spin icon-large"></i>Loading...</div>
 <table class="table table-bordered table-striped table-condensed">
-  <caption>{{running().length}}({{instances.length}}) instances</caption>
+  <caption>{{visible().length}}({{instances.length}}) instances, {{ total$() | currency }}</caption>
   <thead>
     <tr>
       <th>
@@ -48,7 +48,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="i in running() | filter:query | orderBy:'kona_price':true">
+    <tr ng-repeat="i in visible() | orderBy:'kona_price':true">
       <td>{{i.instance_id}}</td>
       <td>{{i.kona_name}}</td>
       <td>{{i.placement.availability_zone}}</td>
