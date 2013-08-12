@@ -39,10 +39,12 @@
                ng-model="query.private_ip_address">
       </th>
       <th>
-        &gt;&nbsp;
-        <input class="input-small"
-               placeholder="Min price"
-               ng-model="minPrice">
+        <div class="input-prepend">
+          <span class="add-on">&gt;</span>
+          <input class="input-small"
+                 placeholder="Min price"
+                 ng-model="minPrice">
+        </div>
       </th>
       <th>Launched</th>
       <th>Spot</th>
