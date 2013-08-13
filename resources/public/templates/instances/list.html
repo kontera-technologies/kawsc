@@ -1,5 +1,5 @@
 <div ng-show="loading"><i class="icon-spinner icon-spin icon-large"></i>Loading...</div>
-<table class="table table-bordered table-striped table-condensed">
+<table class="table table-bordered table-striped">
   <caption>{{visible().length}}({{instances.length}}) instances, {{ total$() | currency }}</caption>
   <thead>
     <tr>
@@ -41,7 +41,7 @@
       <th>
         <div class="input-prepend">
           <span class="add-on">&gt;</span>
-          <input class="input-small"
+          <input class="input-mini"
                  placeholder="Min price"
                  ng-model="minPrice">
         </div>
