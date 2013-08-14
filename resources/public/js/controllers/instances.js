@@ -4,10 +4,13 @@ angular.module('kawsc')
   .controller('InstanceListCtrl', function($scope, $http, $filter, $log) {
     $scope.loading = true;
     $scope.minPrice = 0;
+    $scope.showSpot = true;
 
     $scope.visible = function () {
       return _.filter($filter('filter')($scope.instances, $scope.query), function(i) {
-        return i.state.name === "running" && i.kona_price >= $scope.minPrice;
+        return i.state.name === "running" &&
+          i.kona_price >= $scope.minPrice &&
+          ($scope.showSpot || (!$scope.showSpot && i.instance_lifecycle != "spot"));
       });
     };
 
@@ -19,7 +22,6 @@ angular.module('kawsc')
 
     $http.get('/instances')
       .success(function(data) {
-        $log.log(data);
         $scope.instances = data;
         $scope.loading = false;
       }).error(function(data, status) {

@@ -38,7 +38,7 @@
    "m2.4xlarge" 486.72
    "c1.medium" 64.8
    "c1.xlarge" 259.2
-   "cc1.4xlarge" 936 ;; there is no pricing for this type anymore, using regular price
+   "cc1.4xlarge" 534.24 ;; not available anymore, this is the old price
    "cc1.8xlarge" 650.88
    "cr1.8xlarge" 1108.8
    "cg1.4xlarge" 1512 ;; not availabie, using regular price

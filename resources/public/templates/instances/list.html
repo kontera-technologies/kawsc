@@ -5,36 +5,43 @@
     <tr>
       <th>
         <input class="input-small"
+               type="text"
                placeholder="ID"
                ng-model="query.instance_id">
       </th>
       <th>
         <input class="input-small"
+               type="text"
                placeholder="Name"
                ng-model="query.kona_name">
       </th>
       <th>
         <input class="input-small"
+               type="text"
                placeholder="Zone"
                ng-model="query.kona_availability_zone">
       </th>
       <th>
         <input class="input-small"
+               type="text"
                placeholder="Project"
                ng-model="query.kona_project">
       </th>
       <th>
         <input class="input-small"
+               type="text"
                placeholder="Type"
                ng-model="query.instance_type">
       </th>
       <th>
         <input class="input-small"
+               type="text"
                placeholder="DNS"
                ng-model="query.public_dns_name">
       </th>
       <th>
         <input class="input-small"
+               type="text"
                placeholder="IP"
                ng-model="query.private_ip_address">
       </th>
@@ -42,12 +49,13 @@
         <div class="input-prepend">
           <span class="add-on">&gt;</span>
           <input class="input-mini"
+                 type="number"
                  placeholder="Min price"
                  ng-model="minPrice">
         </div>
       </th>
       <th>Launched</th>
-      <th>Spot</th>
+      <th>Spot <input type="checkbox" ng-model="showSpot"></th>
     </tr>
   </thead>
   <tbody>
