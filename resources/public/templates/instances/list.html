@@ -59,7 +59,7 @@
       <td>{{i.instance_type}}</td>
       <td>{{i.public_dns_name}}</td>
       <td>{{i.private_ip_address}}</td>
-      <td>{{i.kona_price | currency}}</td>
+      <td>{{i.kona_price | currency}} <i ng-show="i.kona_reserved" class="icon-money" style="color:green;"></i></td>
       <td>{{i.launch_time | date:'mediumDate'}}</td>
       <td>{{i.instance_lifecycle || "regular"}}</td>
     </tr>

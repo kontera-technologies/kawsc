@@ -19,6 +19,7 @@ angular.module('kawsc')
 
     $http.get('/instances')
       .success(function(data) {
+        $log.log(data);
         $scope.instances = data;
         $scope.loading = false;
       }).error(function(data, status) {
