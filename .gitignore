@@ -13,4 +13,4 @@ pom.xml.asc
 /log/*.log
 /etc/kawsc.cfg
 /resources/public/js/components
-./vagrant
+/.vagrant
