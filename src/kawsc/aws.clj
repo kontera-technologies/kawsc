@@ -85,7 +85,9 @@
                    (:instance-type i)]
                 reserved-count (get reserved-instances k 0)
                 running? (= (get-in i [:state :name]) "running")
+                spot? (= (:instance-lifecycle i) "spot")
                 [reserved price reserved-count] (if (and running?
+                                                         (not spot?)
                                                          (> reserved-count 0))
                                                   [true
                                                    (get reserved-pricing
@@ -108,7 +110,8 @@
                                          v (get %1 k 0)]
                                      (assoc %1 k (inc v)))
                                   {}
-                                  (filter #(= (get-in % [:state :name]) "running")
+                                  (filter #(and (= (get-in % [:state :name]) "running")
+                                                (not= (:instance-lifecycle %) "spot"))
                                           (instances-list aws-creds)))]
     (loop [result []
            input reserved-instances
