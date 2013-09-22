@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kawsc', ['ui.bootstrap'])
+angular.module('kawsc', ['ngRoute', 'ui.bootstrap'])
   .config(function($routeProvider) {
     $routeProvider
       .when('/instances', {controller: 'InstanceListCtrl',
