@@ -14,3 +14,4 @@ pom.xml.asc
 /etc/kawsc.cfg
 /resources/public/js/components
 /.vagrant
+.nrepl-port
